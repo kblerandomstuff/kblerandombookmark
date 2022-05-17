@@ -1,10 +1,11 @@
 [
-  "template":{
+  { "title":"template",
     "url":"",
     "desc":"",
     "tags":["","",""]
   },
-  "particles.js":{
+  { "title":"particles.js",
+    "favico":"",
     "url":"https://vincentgarreau.com/particles.js/",
     "desc":"javascript for creating animated background",
     "tags":["JS","development","coding"]
