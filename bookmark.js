@@ -1,5 +1,5 @@
-var bmjson = null;
-const product = urlParams.get('product');
+//var bmjson = null;
+//const product = urlParams.get('product');
 
 var getJSON = function(url, callback) {
     var xhr = new XMLHttpRequest();
@@ -22,9 +22,9 @@ var getbm = function(){
     if (err !== null) {
       alert('Something went wrong: ' + err);
     } else {
-      bmjson = JSON.parse(data);
+      return JSON.parse(data);
     }
-  }
+  });
 }
 
 var sortbm = function(data,method){
@@ -54,8 +54,12 @@ var showbm = function(data){
       }
       bm_html += `</div></div></div></div></a>`
     }
+    document.getElementById("bm_area").innerHTML += bm_html
   }
-});
 
-var getbm = function(){}
-var
+var init_site = function(){
+
+}
+var bm = getbm()
+sbm = sortbm(bm,0)
+showbm(bm)
