@@ -1,31 +1,37 @@
 //var bmjson = null;
 //const product = urlParams.get('product');
 
-var getJSON = function(url, callback) {
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', url, true);
-    xhr.responseType = 'json';
-    xhr.onload = function() {
-      var status = xhr.status;
-      if (status === 200) {
-        callback(null, xhr.response);
-      } else {
-        callback(status, xhr.response);
-      }
-    };
-    xhr.send();
-};
+//var getJSON = function(url, callback) {
+//    var xhr = new XMLHttpRequest();
+//    xhr.open('GET', url, true);
+//    xhr.responseType = 'json';
+//    xhr.onload = function() {
+//      var status = xhr.status;
+//      if (status === 200) {
+  //      callback(null, xhr.response);
+  //    } else {
+    //    callback(status, xhr.response);
+  //    }
+//    };
+//    xhr.send();
+//};
 
 var getbm = function(){
-  getJSON('https://raw.githubusercontent.com/kblerandomstuff/kblerandombookmark/master/link.json',
-  function(err, data) {
+  $.getJSON("/link.json", function(data) {
+//  function(err, data) {
     if (err !== null) {
-      alert('Something went wrong: ' + err);
+      console.error(err);
     } else {
       return JSON.parse(data);
+      console.log(data);
     }
-  });
-}
+  }).fail(function(jqxhr){
+      alert(jqxhr.responseText);
+    })
+};
+
+
+
 
 var sortbm = function(data,method){
   if (method==0){
@@ -37,7 +43,7 @@ var sortbm = function(data,method){
       return b.title - a.title;
     });
   };
-}
+};
 
 var showbm = function(data){
     var bm_html=""
@@ -55,11 +61,11 @@ var showbm = function(data){
       bm_html += `</div></div></div></div></a>`
     }
     document.getElementById("bm_area").innerHTML += bm_html
-  }
+  };
 
 var init_site = function(){
 
-}
+};
 var bm = getbm()
 sbm = sortbm(bm,0)
 showbm(bm)
