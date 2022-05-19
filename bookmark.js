@@ -5,22 +5,34 @@ var assignVarBM = function(data) {
 	bm = data;
 }
 
+function srtasc(prop) {
+		return function(a, b) {
+				if (a[prop] > b[prop]) {
+						return 1;
+				} else if (a[prop] < b[prop]) {
+						return -1;
+				}
+				return 0;
+		}
+}
+
+function srtdec(prop) {
+		return function(a, b) {
+				if (a[prop] < b[prop]) {
+						return 1;
+				} else if (a[prop] > b[prop]) {
+						return -1;
+				}
+				return 0;
+		}
+}
+
 var sortbm = function(data, method) {
 	if (method == "asc") {
-		console.log("0");
-		Object.keys(data).sort(function(a, b) {
-			return a.title -
-				b.title;
-		});
+		data.sort(srtasc("title"))
 	} else if (method == "dec") {
-		console.log("1");
-		Object.keys(data).sort(function(a, b) {
-			return b.title -
-				a.title;
-
-		});
+		data.sort(srtdec("title"))
 	};
-	console.log(data);
 	return data;
 };
 
@@ -28,15 +40,15 @@ function show_bm_area(data) {
 	$('#bmarea').append(data);
 };
 
-function build_bm_area() {
-	data = sortbm(bm, "dec");
+function build_bm_area(datafp) {
+	data = sortbm(datafp, "dec");
 	var htmlparse = ""
 	for (let i = 0; i < Object.keys(
 			data).length; i++) {
 		htmlparse = htmlparse +
 			`<div onclick="location.href='` +
 			data[i].url +
-			`'" class="col"><div class="card p-3 mb-2"><div class="d-flex justify-content-between"><div class="d-flex flex-row align-items-center"><div class="icon"><img src="` +
+			`'" class="col"><div class="card p-3 mb-2  link_card"><div class="d-flex justify-content-between"><div class="d-flex flex-row align-items-center"><div class="icon"><img src="` +
 			data[i].favico +
 			' style="max-width: 30px"></div><div class="ms-2 c-details"><h3 class="mb-0">' +
 			data[i].title +
@@ -58,8 +70,8 @@ function build_bm_area() {
 	show_bm_area(htmlparse);
 };
 
-function build_bm_area() {
-	data = sortbm(bm, "dec");
+function build_bm_area_tag() {
+	data = sortbm(pbm, "dec");
 	var htmlparse = ""
 	for (let i = 0; i < Object.keys(
 			data).length; i++) {
@@ -93,10 +105,8 @@ function get_json() {
 		url: '/link.json',
 		async: false,
 		dataType: 'json',
-		success: function(
-			json) {
-			assignVarBM(
-				json);
+		success: function(json) {
+			assignVarBM(json);
 		}
 	});
 };
@@ -104,14 +114,14 @@ function get_json() {
 function init_site() {
 	get_json();
 	$.when(get_json()).done(function() {
-		pbm = JSON.parse(JSON
-			.stringify(bm));
+		pbm = JSON.parse(JSON.stringify(bm));
 		build_bm_area(pbm);
 	});
 };
 
-function filter_by_tag(){
-
+function filter_by_tag(tag){
+	fills=[]
+	$.foreach
 };
 
 
