@@ -1,104 +1,97 @@
-//var bmjson = null;
-//const product = urlParams.get('product');
-
-var assignVarBM = function(data) {
-	bm = data;
-}
-
-function srtasc(prop) {
+function srt_asc_wp(prop) {
 		return function(a, b) {
-				if (a[prop] > b[prop]) {
+				if (a[prop].toLowerCase() > b[prop].toLowerCase()) {
 						return 1;
-				} else if (a[prop] < b[prop]) {
+				} else if (a[prop].toLowerCase() < b[prop].toLowerCase()) {
 						return -1;
 				}
 				return 0;
 		}
 }
 
-function srtdec(prop) {
+function srt_dec_wp(prop) {
 		return function(a, b) {
-				if (a[prop] < b[prop]) {
+				if (a[prop].toLowerCase() < b[prop].toLowerCase()) {
 						return 1;
-				} else if (a[prop] > b[prop]) {
+				} else if (a[prop].toLowerCase() > b[prop].toLowerCase()) {
 						return -1;
 				}
 				return 0;
 		}
 }
 
-var sortbm = function(data, method) {
+function srt_asc() {
+		return function(a, b) {
+				if (a.toLowerCase() > b.toLowerCase()) {
+						return 1;
+				} else if (a.toLowerCase() < b.toLowerCase()) {
+						return -1;
+				}
+				return 0;
+		}
+}
+
+function srt_dec() {
+		return function(a, b) {
+				if (a.toLowerCase() < b.toLowerCase()) {
+						return 1;
+				} else if (a.toLowerCase() > b.toLowerCase()) {
+						return -1;
+				}
+				return 0;
+		}
+}
+
+function show_container(head,body){
+	$('#bmarea').empty().append(body);
+
+}
+
+function sortbm(data, method) {
 	if (method == "asc") {
-		data.sort(srtasc("title"))
+		data.sort(srt_asc_wp("title"))
 	} else if (method == "dec") {
-		data.sort(srtdec("title"))
+		data.sort(srt_dec_wp("title"))
 	};
 	return data;
 };
 
-function show_bm_area(data) {
-	$('#bmarea').append(data);
+function srt_wm(data, method) {
+	if (method == "asc") {
+		data.sort(srt_asc("title"))
+	} else if (method == "dec") {
+		data.sort(srt_dec("title"))
+	};
+	return data;
 };
+
 
 function build_bm_area(datafp) {
 	data = sortbm(datafp, "dec");
 	var htmlparse = ""
-	for (let i = 0; i < Object.keys(
-			data).length; i++) {
+	for (let i = 0; i < Object.keys(data).length; i++) {
 		htmlparse = htmlparse +
-			`<div onclick="location.href='` +
+			`<div  class="col" ><div class="card p-3 mb-2  link_card" onclick="location.href='` +
 			data[i].url +
-			`'" class="col"><div class="card p-3 mb-2  link_card"><div class="d-flex justify-content-between"><div class="d-flex flex-row align-items-center"><div class="icon"><img src="` +
+			`'"><div class="d-flex justify-content-between"><div class="d-flex flex-row align-items-center"><div class="icon"><img src="` +
 			data[i].favico +
 			' style="max-width: 30px"></div><div class="ms-2 c-details"><h3 class="mb-0">' +
 			data[i].title +
 			'</h3></div></div></div><div class="mt-2"><p>' +
 			data[i].desc +
-			'</p><div class="tag">';
-		for (let j = 0; j < Object.keys(
-				data[i]).length; j++) {
+			'</p></div><div class="tag">';
+		for (let j = 0; j < Object.keys(data[i]).length; j++) {
 			htmlparse = htmlparse +
-				'<a href="' + data[i]
-				.url +
-				'"><span class="badge bg-secondary">' +
-				data[i].tags[j] +
+				'<a ><span class="badge bg-secondary" onclick="filter_by_tag($(this).text());event.stopPropagation();">' +data[i].tags[j] +
 				'</span></a>';
 		};
 		htmlparse = htmlparse +
 			'</div></div></div></div></a>';
 	};
-	show_bm_area(htmlparse);
+	show_container("",htmlparse);
 };
 
-function build_bm_area_tag() {
-	data = sortbm(pbm, "dec");
-	var htmlparse = ""
-	for (let i = 0; i < Object.keys(
-			data).length; i++) {
-		htmlparse = htmlparse +
-			`<div onclick="location.href='` +
-			data[i].url +
-			`'" class="col"><div class="card p-3 mb-2"><div class="d-flex justify-content-between"><div class="d-flex flex-row align-items-center"><div class="icon"><img src="` +
-			data[i].favico +
-			' style="max-width: 30px"></div><div class="ms-2 c-details"><h3 class="mb-0">' +
-			data[i].title +
-			'</h3></div></div></div><div class="mt-2"><p>' +
-			data[i].desc +
-			'</p><div class="tag">';
-		for (let j = 0; j < Object.keys(
-				data[i]).length; j++) {
-			htmlparse = htmlparse +
-				'<a href="' + data[i]
-				.url +
-				'"><span class="badge bg-secondary">' +
-				data[i].tags[j] +
-				'</span></a>';
-		};
-		htmlparse = htmlparse +
-			'</div></div></div></div></a>';
-	};
-	show_bm_area(htmlparse);
-};
+
 
 function get_json() {
 	$.ajax({
@@ -106,7 +99,7 @@ function get_json() {
 		async: false,
 		dataType: 'json',
 		success: function(json) {
-			assignVarBM(json);
+			bm=json
 		}
 	});
 };
@@ -115,18 +108,52 @@ function init_site() {
 	get_json();
 	$.when(get_json()).done(function() {
 		pbm = JSON.parse(JSON.stringify(bm));
-		build_bm_area(pbm);
 	});
 };
 
 function filter_by_tag(tag){
 	fills=[]
-	$.foreach
+	$.each(pbm,function( key, value ) {
+    if (value["tags"].includes(tag)){
+      fills.push(value)
+    }
+	})
+	build_bm_area(fills);
 };
 
+function get_tags(){
+	var tagls=[]
+	$.each(pbm,function( key, value ) {
+		$.each(value["tags"],function( key, value ) {
+	    if (tagls.includes(value)){
+	    } else {
+				tagls.push(value)
+			}
+		})
+	})
+	tagls=srt_wm(tagls,"asc")
+	console.log(tagls)
+	return tagls
+}
+
+function build_tag_page(){
+	var data=get_tags()
+	var htmlparse = ""
+	htmlparse=htmlparse+"<h2>All tags</h2><hr>"
+	for (let i = 0; i < Object.keys(data).length; i++) {
+		htmlparse=htmlparse+'<button type="button" class="btn btn-primary" onclick="filter_by_tag($(this).text());">'+data[i]+'</button>';
+	}
+	show_container("",htmlparse);
+}
 
 var sba = "http://localhost:1313";
-var bm;
+var bm,pbm;
+
 $(document).ready(function() {
 	init_site();
+	if (window.location.search==null){
+		build_bm_area(pbm);
+	}else{
+		build_bm_area(pbm);
+	}
 });

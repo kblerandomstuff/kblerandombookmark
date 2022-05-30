@@ -4,6 +4,14 @@
     .link_card:hover{
       background-color: #b5b2b1;
     }
+    div.loading{
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(16, 16, 16, 0.5);
+    }
   </style>
   <script>
 
@@ -28,15 +36,10 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav navbar-nav ms-md-auto" id="menu">
             <li class="nav-item">
-              <a class="nav-link" href="https://krs.ovh/blog/" title="blog">blog</a>
+              <a class="nav-link" onclick="build_bm_area(pbm);" title="blog">all</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="https://krs.ovh/categories/" title="categories">categories</a>
-            </li><li class="nav-item">
-              <a class="nav-link" href="https://krs.ovh/tags/" title="tags">tags</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="https://krs.ovh/search/" title="search">search</a>
+              <a class="nav-link" onclick="build_tag_page();" title="tags">tags</a>
             </li>
           </ul>
         </div>
@@ -49,7 +52,7 @@
       <p>link and also human</p>
     </div>
 
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4" id="bmarea"></div>
+      <div id="contentarea"></div>
 
   </div>
 
