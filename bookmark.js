@@ -43,7 +43,7 @@ function srt_dec() {
 }
 
 function show_container(head,body){
-	$('#bmarea').empty().append(body);
+	$('#contentarea').empty().append(body);
 
 }
 
@@ -68,14 +68,14 @@ function srt_wm(data, method) {
 
 function build_bm_area(datafp) {
 	data = sortbm(datafp, "dec");
-	var htmlparse = ""
+	var htmlparse = '<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">'
 	for (let i = 0; i < Object.keys(data).length; i++) {
 		htmlparse = htmlparse +
 			`<div  class="col" ><div class="card p-3 mb-2  link_card" onclick="location.href='` +
 			data[i].url +
 			`'"><div class="d-flex justify-content-between"><div class="d-flex flex-row align-items-center"><div class="icon"><img src="` +
 			data[i].favico +
-			' style="max-width: 30px"></div><div class="ms-2 c-details"><h3 class="mb-0">' +
+			'"style="max-width: 30px"></div><div class="ms-2 c-details"><h3 class="mb-0">' +
 			data[i].title +
 			'</h3></div></div></div><div class="mt-2"><p>' +
 			data[i].desc +
@@ -86,8 +86,9 @@ function build_bm_area(datafp) {
 				'</span></a>';
 		};
 		htmlparse = htmlparse +
-			'</div></div></div></div></a>';
+			'</div></div></div>';
 	};
+	htmlparse = htmlparse+
 	show_container("",htmlparse);
 };
 
@@ -95,7 +96,7 @@ function build_bm_area(datafp) {
 
 function get_json() {
 	$.ajax({
-		url: '/link.json',
+		url: 'link.json',
 		async: false,
 		dataType: 'json',
 		success: function(json) {

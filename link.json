@@ -9,15 +9,21 @@
     "desc":"javascript for creating animated background",
     "tags":["JS","development","coding"]
   },
-  { "title":"aarticles.js",
-    "favico":"",
-    "url":"https://vincentgarreau.com/particles.js/",
-    "desc":"javascript for creating animated background",
-    "tags":["JS","development","coding"]
+  { "title":"萌番組",
+    "url":"https://bangumi.moe/",
+    "desc":"anime torrent",
+    "tags":["torrent","download","bt","anime"]
   },
-  {"title":"Template",
-      "url":"ww",
-      "desc":"ww",
-      "tags":["ww","qq","qq"]
+  {"title":"蜜柑计划",
+      "url":"https://mikanani.me/",
+      "favico":"https://mikanani.me/images/favicon.ico?v=2",
+      "desc":"anime torrent",
+      "tags":["torrent","download","bt","anime"]
+  },
+  { "title":"Nyaa",
+      "url":"https://nyaa.si/",
+      "favico":"https://nyaa.si/static/favicon.png",
+      "desc":"anime torrent",
+      "tags":["torrent","download","bt","anime"]
     }
 ]
