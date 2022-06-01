@@ -73,9 +73,11 @@ function build_bm_area(datafp) {
 		htmlparse = htmlparse +
 			`<div  class="col" ><div class="card p-3 mb-2  link_card" onclick="location.href='` +
 			data[i].url +
-			`'"><div class="d-flex justify-content-between"><div class="d-flex flex-row align-items-center"><div class="icon"><img src="` +
-			data[i].favico +
-			'"style="max-width: 30px"></div><div class="ms-2 c-details"><h3 class="mb-0">' +
+			`'"><div class="d-flex justify-content-between"><div class="d-flex flex-row align-items-center">`
+			if (data[i].favico!=undefined){
+				htmlparse = htmlparse +`<div class="icon"><img src="` +data[i].favico +'"style="max-width: 30px"></div>'
+			}
+			htmlparse = htmlparse +'<div class="ms-2 c-details"><h3 class="mb-0">' +
 			data[i].title +
 			'</h3></div></div></div><div class="mt-2"><p>' +
 			data[i].desc +
